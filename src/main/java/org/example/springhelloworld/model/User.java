@@ -31,7 +31,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles;
+        return roles != null ? roles : Set.of();  // Возвращаем пустой набор ролей, если roles == null
     }
 
     public void setPassword(String password) {
