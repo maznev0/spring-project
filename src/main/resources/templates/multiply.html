@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Умножение чисел</title>
+
+    <script>
+        function sendRequest() {
+            const number = document.getElementById("number").value;
+            const multiplier = document.getElementById("multiplier").value;
+
+            const requestData = {
+                number: parseInt(number),
+                multiplier: parseInt(multiplier)
+            };
+
+            fetch('/api/multiply', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(requestData)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("result").innerText = 'Результат: ' + data.result;
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
+</head>
+<body>
+<h1>Умножение чисел</h1>
+<form onsubmit="event.preventDefault(); sendRequest();">
+    <label for="number">Число:</label>
+    <input type="text" id="number" required>
+    <label for="multiplier">Множитель:</label>
+    <input type="text" id="multiplier" required>
+    <button type="submit">Умножить</button>
+</form>
+<p id="result"></p>
+</body>
+</html>
